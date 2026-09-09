@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Practice - Placement Prep</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .coding-page {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .coding-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .coding-header h1 {
+            margin-bottom: 10px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filters select {
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .coding-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .problem-meta {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+            font-size: 13px;
+        }
+
+        .problem-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .code-area {
+            width: 100%;
+            min-height: 220px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .coding-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .coding-actions button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .run-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .next-btn {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .solved-box {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: #eff6ff;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🎓 Placement Prep</div>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="index.html#about">About</a>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-secondary">Login</a>
+                <a href="signup.html" class="btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="coding-page">
+
+        <div class="coding-header">
+            <h1>💻 Coding Practice</h1>
+            <p>Practice coding problems and improve your programming skills.</p>
+        </div>
+
+        <!-- Solved Count -->
+        <div class="solved-box">
+            Problems Solved: <span id="solvedCount">0</span>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <select id="languageFilter">
+                <option value="All">All Languages</option>
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+                <option value="C++">C++</option>
+            </select>
+
+            <select id="difficultyFilter">
+                <option value="All">All Difficulties</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+        </div>
+
+
+        <!-- Coding Card -->
+        <div class="coding-card">
+
+            <h2 id="problemTitle">Loading...</h2>
+
+            <div class="problem-meta">
+                <span class="badge" id="problemLanguage">Java</span>
+                <span class="badge" id="problemDifficulty">Easy</span>
+            </div>
+
+            <div class="problem-box">
+                <h3>Problem Statement</h3>
+                <p id="problemDescription"></p>
+
+                <h3>Example</h3>
+                <p id="problemExample"></p>
+            </div>
+
+            <h3>Your Code</h3>
+
+            <textarea
+                id="codeEditor"
+                class="code-area"
+                placeholder="Write your code here..."
+            ></textarea>
+
+            <div class="coding-actions">
+                <button class="run-btn" onclick="runCode()">
+                    ▶ Run Code
+                </button>
+
+                <button class="next-btn" onclick="nextQuestion()">
+                    Next Question →
+                </button>
+            </div>
+
+            <div class="status" id="statusMessage"></div>
+
+        </div>
+
+        <a href="dashboard.html" class="back-link">
+            ← Back to Dashboard
+        </a>
+
+    </main>
+
+
+    <script>
+
+        const questions = [
+
+            {
+                title: "Reverse a String",
+                language: "Java",
+                difficulty: "Easy",
+                description:
+                    "Write a program to reverse a given string.",
+                example:
+                    'Input: "hello" → Output: "olleh"',
+                starter:
+`public class Main {
+    public static void main(String[] args) {
+
+        String str = "hello";
+
+        // Write your code here
+
+    }
+}`
+            },
+
+            {
+                title: "Find Maximum Number",
+                language: "Python",
+                difficulty: "Easy",
+                description:
+                    "Find the maximum number from an array.",
+                example:
+                    "Input: [10, 25, 7, 40] → Output: 40",
+                starter:
+`numbers = [10, 25, 7, 40]
+
+# Write your code here
+`
+            },
+
+            {
+                title: "Check Palindrome",
+                language: "Java",
+                difficulty: "Medium",
+                description:
+                    "Check whether a given string is a palindrome.",
+                example:
+                    'Input: "madam" → Output: Palindrome',
+                starter:
+`public class Main {
+    public static void main(String[] args) {
+
+        String str = "madam";
+
+        // Write your code here
+
+    }
+}`
+            },
+
+            {
+                title: "Count Vowels",
+                language: "Python",
+                difficulty: "Easy",
+                description:
+                    "Count the number of vowels in a given string.",
+                example:
+                    'Input: "placement" → Output: 3',
+                starter:
+`text = "placement"
+
+# Write your code here
+`
+            },
+
+            {
+                title: "Factorial of a Number",
+                language: "C++",
+                difficulty: "Medium",
+                description:
+                    "Write a program to calculate the factorial of a number.",
+                example:
+                    "Input: 5 → Output: 120",
+                starter:
+`#include <iostream>
+using namespace std;
+
+int main() {
+
+    int n = 5;
+
+    // Write your code here
+
+    return 0;
+}`
+            },
+
+            {
+                title: "Find Duplicate Elements",
+                language: "C++",
+                difficulty: "Hard",
+                description:
+                    "Find duplicate elements present in an array.",
+                example:
+                    "Input: [1,2,3,2,4,1] → Output: 1,2",
+                starter:
+`#include <iostream>
+using namespace std;
+
+int main() {
+
+    int arr[] = {1,2,3,2,4,1};
+
+    // Write your code here
+
+    return 0;
+}`
+            }
+
+        ];
+
+
+        let currentQuestion = 0;
+
+        let solvedCount =
+            Number(localStorage.getItem("codingSolved")) || 0;
+
+
+        // Display solved count
+        function updateSolvedCount() {
+
+            document.getElementById("solvedCount").textContent =
+                solvedCount;
+
+        }
+
+
+        // Load question
+        function loadQuestion() {
+
+            const question = questions[currentQuestion];
+
+            document.getElementById("problemTitle").textContent =
+                question.title;
+
+            document.getElementById("problemLanguage").textContent =
+                question.language;
+
+            document.getElementById("problemDifficulty").textContent =
+                question.difficulty;
+
+            document.getElementById("problemDescription").textContent =
+                question.description;
+
+            document.getElementById("problemExample").textContent =
+                question.example;
+
+            document.getElementById("codeEditor").value =
+                question.starter;
+
+            document.getElementById("statusMessage").textContent = "";
+
+        }
+
+
+        // Run Code
+        function runCode() {
+
+            const status =
+                document.getElementById("statusMessage");
+
+            // Demo successful submission
+            status.textContent =
+                "✅ Code submitted successfully!";
+
+            // Prevent counting same question multiple times
+            const solvedKey =
+                "codingSolved_" + currentQuestion;
+
+            if (!localStorage.getItem(solvedKey)) {
+
+                solvedCount++;
+
+                localStorage.setItem(
+                    "codingSolved",
+                    solvedCount
+                );
+
+                localStorage.setItem(
+                    solvedKey,
+                    "true"
+                );
+
+                updateSolvedCount();
+            }
+
+        }
+
+
+        // Next question
+        function nextQuestion() {
+
+            currentQuestion++;
+
+            if (currentQuestion >= questions.length) {
+                currentQuestion = 0;
+            }
+
+            loadQuestion();
+
+        }
+
+
+        // Filters
+        document.getElementById("languageFilter")
+            .addEventListener("change", filterQuestions);
+
+        document.getElementById("difficultyFilter")
+            .addEventListener("change", filterQuestions);
+
+
+        function filterQuestions() {
+
+            const language =
+                document.getElementById("languageFilter").value;
+
+            const difficulty =
+                document.getElementById("difficultyFilter").value;
+
+            let filtered = questions.filter(q => {
+
+                const languageMatch =
+                    language === "All" ||
+                    q.language === language;
+
+                const difficultyMatch =
+                    difficulty === "All" ||
+                    q.difficulty === difficulty;
+
+                return languageMatch && difficultyMatch;
+
+            });
+
+            if (filtered.length > 0) {
+
+                const selected = filtered[0];
+
+                currentQuestion =
+                    questions.indexOf(selected);
+
+                loadQuestion();
+
+            } else {
+
+                document.getElementById("problemTitle").textContent =
+                    "No questions found";
+
+                document.getElementById("problemDescription").textContent =
+                    "Try another filter.";
+
+                document.getElementById("problemExample").textContent =
+                    "";
+
+                document.getElementById("codeEditor").value =
+                    "";
+
+            }
+
+        }
+
+
+        // Initial load
+        updateSolvedCount();
+        loadQuestion();
+
+    </script>
+
+</body>
+</html>

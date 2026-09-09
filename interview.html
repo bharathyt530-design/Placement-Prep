@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interview Preparation | Placement Prep</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .interview-page {
+            min-height: 100vh;
+            padding: 100px 5% 60px;
+            background: #f8fafc;
+        }
+
+        .interview-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .interview-header h1 {
+            font-size: 40px;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .interview-header p {
+            color: #64748b;
+            font-size: 17px;
+        }
+
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            border: 1px solid #cbd5e1;
+            background: white;
+            color: #334155;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .interview-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .question-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+        }
+
+        .question-card h2 {
+            font-size: 20px;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .category-label {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 15px;
+            padding: 16px;
+            background: #f1f5f9;
+            border-left: 4px solid #2563eb;
+            border-radius: 6px;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .show-answer-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tips-section {
+            max-width: 900px;
+            margin: 45px auto 0;
+        }
+
+        .tips-section h2 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .tip-card h3 {
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .tip-card p {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .interview-header h1 {
+                font-size: 30px;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🎓 Placement Prep
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+
+        <a href="index.html" class="btn-primary">
+            Home
+        </a>
+
+    </nav>
+
+
+    <!-- Interview Page -->
+    <section class="interview-page">
+
+        <div class="interview-header">
+            <h1>🎯 Interview Preparation</h1>
+
+            <p>
+                Prepare for HR and technical interviews with common questions.
+            </p>
+        </div>
+
+
+        <!-- Categories -->
+        <div class="category-buttons">
+
+            <button
+                class="category-btn active"
+                onclick="filterQuestions('All', this)">
+                All
+            </button>
+
+            <button
+                class="category-btn"
+                onclick="filterQuestions('HR', this)">
+                HR
+            </button>
+
+            <button
+                class="category-btn"
+                onclick="filterQuestions('Technical', this)">
+                Technical
+            </button>
+
+            <button
+                class="category-btn"
+                onclick="filterQuestions('Java', this)">
+                Java
+            </button>
+
+            <button
+                class="category-btn"
+                onclick="filterQuestions('Database', this)">
+                Database
+            </button>
+
+        </div>
+
+
+        <!-- Questions -->
+        <div class="interview-container" id="questionContainer">
+        </div>
+
+
+        <!-- Interview Tips -->
+        <div class="tips-section">
+
+            <h2>💡 Interview Tips</h2>
+
+            <div class="tips-grid">
+
+                <div class="tip-card">
+
+                    <h3>🗣️ Communication</h3>
+
+                    <p>
+                        Speak clearly and confidently.
+                        Listen carefully before answering.
+                    </p>
+
+                </div>
+
+
+                <div class="tip-card">
+
+                    <h3>💻 Technical Skills</h3>
+
+                    <p>
+                        Revise programming, data structures,
+                        databases and OOP concepts.
+                    </p>
+
+                </div>
+
+
+                <div class="tip-card">
+
+                    <h3>🎯 Be Prepared</h3>
+
+                    <p>
+                        Learn about the company and
+                        practice common interview questions.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        const questions = [
+
+            {
+                category: "HR",
+                question: "Tell me about yourself.",
+                answer:
+                    "Give a short introduction covering your education, technical interests, projects, strengths and career goals."
+            },
+
+            {
+                category: "HR",
+                question: "Why should we hire you?",
+                answer:
+                    "Explain your relevant skills, willingness to learn, problem-solving ability and how you can contribute to the team."
+            },
+
+            {
+                category: "HR",
+                question: "What are your strengths?",
+                answer:
+                    "Choose genuine strengths such as problem-solving, teamwork, communication, adaptability or willingness to learn."
+            },
+
+            {
+                category: "Technical",
+                question: "What is Object-Oriented Programming?",
+                answer:
+                    "OOP is a programming approach based on objects and classes. Common concepts include encapsulation, inheritance, polymorphism and abstraction."
+            },
+
+            {
+                category: "Technical",
+                question: "What is a data structure?",
+                answer:
+                    "A data structure is a way of organizing and storing data so that it can be accessed and processed efficiently."
+            },
+
+            {
+                category: "Java",
+                question: "What is the difference between JDK, JRE and JVM?",
+                answer:
+                    "JVM executes Java bytecode. JRE provides the JVM and libraries needed to run Java applications. JDK includes the JRE plus development tools such as the Java compiler."
+            },
+
+            {
+                category: "Java",
+                question: "What is inheritance in Java?",
+                answer:
+                    "Inheritance allows a class to acquire properties and methods from another class. It helps support code reuse and hierarchical relationships."
+            },
+
+            {
+                category: "Database",
+                question: "What is SQL?",
+                answer:
+                    "SQL stands for Structured Query Language. It is used to create, retrieve, update and manage data in relational databases."
+            },
+
+            {
+                category: "Database",
+                question: "What is a primary key?",
+                answer:
+                    "A primary key uniquely identifies each record in a database table and cannot contain duplicate values."
+            },
+
+            {
+                category: "Technical",
+                question: "What is an API?",
+                answer:
+                    "An API is an interface that allows different software applications or services to communicate with each other."
+            }
+
+        ];
+
+
+        let currentCategory = "All";
+
+
+        function displayQuestions() {
+
+            const container =
+                document.getElementById("questionContainer");
+
+            container.innerHTML = "";
+
+
+            const filtered =
+                currentCategory === "All"
+                    ? questions
+                    : questions.filter(
+                        question =>
+                            question.category === currentCategory
+                    );
+
+
+            filtered.forEach((question, index) => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "question-card";
+
+
+                card.innerHTML = `
+
+                    <span class="category-label">
+                        ${question.category}
+                    </span>
+
+                    <h2>
+                        ${index + 1}. ${question.question}
+                    </h2>
+
+                    <button
+                        class="show-answer-btn"
+                        onclick="toggleAnswer(this)">
+                        Show Answer
+                    </button>
+
+                    <div class="answer">
+                        <strong>Answer:</strong><br><br>
+                        ${question.answer}
+                    </div>
+
+                `;
+
+
+                container.appendChild(card);
+
+            });
+
+        }
+
+
+        function toggleAnswer(button) {
+
+            const answer =
+                button.nextElementSibling;
+
+
+            if (answer.style.display === "block") {
+
+                answer.style.display = "none";
+
+                button.textContent =
+                    "Show Answer";
+
+            } else {
+
+                answer.style.display = "block";
+
+                button.textContent =
+                    "Hide Answer";
+
+            }
+
+        }
+
+
+        function filterQuestions(category, button) {
+
+            currentCategory = category;
+
+
+            document
+                .querySelectorAll(".category-btn")
+                .forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+
+            button.classList.add("active");
+
+
+            displayQuestions();
+
+        }
+
+
+        displayQuestions();
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mock Test | Placement Prep</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .mock-page {
+            min-height: 100vh;
+            padding: 100px 5% 60px;
+            background: #f8fafc;
+        }
+
+        .mock-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .mock-header h1 {
+            font-size: 40px;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .mock-header p {
+            color: #64748b;
+        }
+
+        .test-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .test-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .timer {
+            font-size: 20px;
+            font-weight: 700;
+            color: #dc2626;
+        }
+
+        .progress-text {
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .question-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .question-number {
+            color: #2563eb;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .question-card h2 {
+            font-size: 22px;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #334155;
+        }
+
+        .option:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .option.selected {
+            border-color: #2563eb;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .test-btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .previous-btn {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .next-btn,
+        .submit-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .submit-btn {
+            display: none;
+        }
+
+        .result-card {
+            display: none;
+            background: white;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 35px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .result-card h2 {
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2563eb;
+            margin: 15px 0;
+        }
+
+        .result-message {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            background: #0f172a;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .mock-header h1 {
+                font-size: 30px;
+            }
+
+            .test-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🎓 Placement Prep
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+
+        <a href="index.html" class="btn-primary">
+            Home
+        </a>
+
+    </nav>
+
+
+    <!-- Mock Test -->
+    <section class="mock-page">
+
+        <div class="mock-header">
+            <h1>📝 Mock Test</h1>
+            <p>Test your aptitude and placement preparation.</p>
+        </div>
+
+
+        <div class="test-container">
+
+            <!-- Test Info -->
+            <div class="test-info">
+
+                <div class="progress-text">
+                    Question
+                    <span id="currentQuestion">1</span>
+                    /
+                    <span id="totalQuestions">10</span>
+                </div>
+
+                <div class="timer">
+                    ⏱ <span id="timer">20:00</span>
+                </div>
+
+            </div>
+
+
+            <!-- Question -->
+            <div class="question-card">
+
+                <div class="question-number">
+                    Question <span id="questionNo">1</span>
+                </div>
+
+                <h2 id="questionText">
+                    Loading question...
+                </h2>
+
+                <div class="options" id="optionsContainer">
+                </div>
+
+
+                <div class="buttons">
+
+                    <button
+                        class="test-btn previous-btn"
+                        onclick="previousQuestion()">
+                        ← Previous
+                    </button>
+
+                    <button
+                        class="test-btn next-btn"
+                        id="nextBtn"
+                        onclick="nextQuestion()">
+                        Next →
+                    </button>
+
+                    <button
+                        class="test-btn submit-btn"
+                        id="submitBtn"
+                        onclick="submitTest()">
+                        Submit Test
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Result -->
+        <div class="result-card" id="resultCard">
+
+            <h2>🎉 Test Completed!</h2>
+
+            <div class="score" id="score">
+                0 / 10
+            </div>
+
+            <p class="result-message" id="resultMessage">
+                Keep practicing!
+            </p>
+
+            <button
+                class="restart-btn"
+                onclick="restartTest()">
+                🔄 Restart Test
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        const questions = [
+
+            {
+                question: "What is the output of 10 + 20?",
+                options: ["20", "30", "40", "50"],
+                answer: 1
+            },
+
+            {
+                question: "Which language is mainly used for Android development?",
+                options: ["Kotlin", "HTML", "CSS", "SQL"],
+                answer: 0
+            },
+
+            {
+                question: "Which data structure follows FIFO?",
+                options: ["Stack", "Queue", "Tree", "Graph"],
+                answer: 1
+            },
+
+            {
+                question: "What does CPU stand for?",
+                options: [
+                    "Central Processing Unit",
+                    "Computer Personal Unit",
+                    "Central Program Utility",
+                    "Control Processing User"
+                ],
+                answer: 0
+            },
+
+            {
+                question: "Which symbol is used for comments in Java?",
+                options: ["//", "#", "<!-- -->", "$$"],
+                answer: 0
+            },
+
+            {
+                question: "Which SQL command is used to retrieve data?",
+                options: ["GET", "SELECT", "FETCH", "READ"],
+                answer: 1
+            },
+
+            {
+                question: "What is 15% of 200?",
+                options: ["20", "25", "30", "35"],
+                answer: 2
+            },
+
+            {
+                question: "Which one is an OOP concept?",
+                options: [
+                    "Encapsulation",
+                    "Compilation",
+                    "Execution",
+                    "Debugging"
+                ],
+                answer: 0
+            },
+
+            {
+                question: "Which HTML tag is used to create a hyperlink?",
+                options: ["<p>", "<a>", "<link>", "<h1>"],
+                answer: 1
+            },
+
+            {
+                question: "Which database is a relational database?",
+                options: ["MySQL", "MongoDB", "Redis", "Neo4j"],
+                answer: 0
+            }
+
+        ];
+
+
+        let currentIndex = 0;
+
+        let selectedAnswers =
+            new Array(questions.length).fill(null);
+
+        let timeLeft = 20 * 60;
+
+        let timerInterval;
+
+
+        document.getElementById("totalQuestions").textContent =
+            questions.length;
+
+
+        function loadQuestion() {
+
+            const question =
+                questions[currentIndex];
+
+            document.getElementById("currentQuestion").textContent =
+                currentIndex + 1;
+
+            document.getElementById("questionNo").textContent =
+                currentIndex + 1;
+
+            document.getElementById("questionText").textContent =
+                question.question;
+
+
+            const optionsContainer =
+                document.getElementById("optionsContainer");
+
+            optionsContainer.innerHTML = "";
+
+
+            question.options.forEach((option, index) => {
+
+                const optionElement =
+                    document.createElement("div");
+
+                optionElement.className = "option";
+
+                optionElement.textContent = option;
+
+
+                if (selectedAnswers[currentIndex] === index) {
+                    optionElement.classList.add("selected");
+                }
+
+
+                optionElement.addEventListener(
+                    "click",
+                    () => selectAnswer(index)
+                );
+
+
+                optionsContainer.appendChild(optionElement);
+
+            });
+
+
+            updateButtons();
+
+        }
+
+
+        function selectAnswer(index) {
+
+            selectedAnswers[currentIndex] = index;
+
+            loadQuestion();
+
+        }
+
+
+        function updateButtons() {
+
+            const nextBtn =
+                document.getElementById("nextBtn");
+
+            const submitBtn =
+                document.getElementById("submitBtn");
+
+
+            if (currentIndex === questions.length - 1) {
+
+                nextBtn.style.display = "none";
+                submitBtn.style.display = "block";
+
+            } else {
+
+                nextBtn.style.display = "block";
+                submitBtn.style.display = "none";
+
+            }
+
+        }
+
+
+        function nextQuestion() {
+
+            if (currentIndex < questions.length - 1) {
+
+                currentIndex++;
+
+                loadQuestion();
+
+            }
+
+        }
+
+
+        function previousQuestion() {
+
+            if (currentIndex > 0) {
+
+                currentIndex--;
+
+                loadQuestion();
+
+            }
+
+        }
+
+
+        function submitTest() {
+
+            const unanswered =
+                selectedAnswers.filter(
+                    answer => answer === null
+                ).length;
+
+
+            if (unanswered > 0) {
+
+                const confirmSubmit =
+                    confirm(
+                        `You have ${unanswered} unanswered question(s). Submit anyway?`
+                    );
+
+                if (!confirmSubmit) {
+                    return;
+                }
+
+            }
+
+
+            clearInterval(timerInterval);
+
+
+            let score = 0;
+
+
+            questions.forEach((question, index) => {
+
+                if (
+                    selectedAnswers[index] ===
+                    question.answer
+                ) {
+                    score++;
+                }
+
+            });
+
+
+            document.querySelector(".test-container").style.display =
+                "none";
+
+            document.getElementById("resultCard").style.display =
+                "block";
+
+
+            document.getElementById("score").textContent =
+                `${score} / ${questions.length}`;
+
+
+            const percentage =
+                (score / questions.length) * 100;
+
+
+            let message;
+
+
+            if (percentage >= 80) {
+
+                message =
+                    "Excellent! Your placement preparation is strong. 🔥";
+
+            } else if (percentage >= 60) {
+
+                message =
+                    "Good job! Keep practicing to improve. 👍";
+
+            } else {
+
+                message =
+                    "Keep practicing. You can improve with regular preparation. 💪";
+
+            }
+
+
+            document.getElementById("resultMessage").textContent =
+                message;
+
+
+            localStorage.setItem(
+                "mockTestScore",
+                score
+            );
+
+            localStorage.setItem(
+                "mockTestTotal",
+                questions.length
+            );
+
+        }
+
+
+        function startTimer() {
+
+            timerInterval =
+                setInterval(() => {
+
+                    const minutes =
+                        Math.floor(timeLeft / 60);
+
+                    const seconds =
+                        timeLeft % 60;
+
+
+                    document.getElementById("timer").textContent =
+                        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+
+                    if (timeLeft <= 0) {
+
+                        clearInterval(timerInterval);
+
+                        submitTest();
+
+                    }
+
+
+                    timeLeft--;
+
+                }, 1000);
+
+        }
+
+
+        function restartTest() {
+
+            currentIndex = 0;
+
+            selectedAnswers =
+                new Array(questions.length).fill(null);
+
+            timeLeft = 20 * 60;
+
+
+            document.querySelector(".test-container").style.display =
+                "block";
+
+            document.getElementById("resultCard").style.display =
+                "none";
+
+
+            loadQuestion();
+
+            clearInterval(timerInterval);
+
+            startTimer();
+
+        }
+
+
+        loadQuestion();
+
+        startTimer();
+
+    </script>
+
+</body>
+</html>

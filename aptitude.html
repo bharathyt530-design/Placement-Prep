@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aptitude Practice | Placement Prep</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Aptitude Page CSS -->
+    <style>
+        /* ================= APTITUDE PAGE ================= */
+
+        .aptitude-page {
+            min-height: 100vh;
+            background: #f8fafc;
+            padding: 45px 20px 80px;
+        }
+
+        .aptitude-container {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .aptitude-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .page-title h1 {
+            font-size: 34px;
+            margin-bottom: 5px;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Timer */
+
+        .timer {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-weight: 700;
+            color: #0f172a;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .timer span {
+            color: #2563eb;
+        }
+
+        /* Progress */
+
+        .quiz-progress {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .quiz-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            width: 5%;
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+        /* Question Card */
+
+        .question-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
+        }
+
+        .question-number {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .question {
+            font-size: 23px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        /* Options */
+
+        .options {
+            display: grid;
+            gap: 13px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            width: 100%;
+            padding: 16px;
+
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+
+            cursor: pointer;
+            transition: 0.2s ease;
+
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .option:hover {
+            border-color: #93c5fd;
+            background: #eff6ff;
+        }
+
+        .option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .option input {
+            display: none;
+        }
+
+        .option-letter {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 50%;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .option.selected .option-letter {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+
+        /* Buttons */
+
+        .quiz-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .quiz-btn {
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .previous-btn {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .previous-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .next-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .submit-btn {
+            background: #16a34a;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: #15803d;
+        }
+
+        /* Result */
+
+        .result-card {
+            display: none;
+
+            text-align: center;
+
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 45px 25px;
+
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
+        }
+
+        .result-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .result-card h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .result-card p {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 50px;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            padding: 13px 25px;
+            border-radius: 9px;
+            background: #2563eb;
+            color: white;
+            font-weight: 700;
+        }
+
+        .restart-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .aptitude-page {
+                padding: 30px 15px 60px;
+            }
+
+            .aptitude-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+            .timer {
+                width: 100%;
+                text-align: center;
+            }
+
+            .question-card {
+                padding: 22px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .quiz-actions {
+                flex-direction: column-reverse;
+            }
+
+            .quiz-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                🎓 Placement Prep
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <a href="index.html" class="login-btn">
+                    Home
+                </a>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- ================= APTITUDE ================= -->
+
+    <main class="aptitude-page">
+
+        <div class="aptitude-container">
+
+            <!-- Top -->
+
+            <div class="aptitude-top">
+
+                <div class="page-title">
+
+                    <a href="index.html" class="back-btn">
+                        ← Back to Home
+                    </a>
+
+                    <h1>Aptitude Practice</h1>
+
+                    <p>
+                        Test your quantitative and logical reasoning skills.
+                    </p>
+
+                </div>
+
+                <div class="timer">
+                    ⏱ Time Left:
+                    <span id="timer">15:00</span>
+                </div>
+
+            </div>
+
+
+            <!-- Progress -->
+
+            <div class="quiz-progress">
+
+                <div class="progress-top">
+
+                    <span id="questionCounter">
+                        Question 1 of 20
+                    </span>
+
+                    <span id="answeredCounter">
+                        Answered: 0
+                    </span>
+
+                </div>
+
+                <div class="quiz-progress-bar">
+
+                    <div
+                        class="quiz-progress-fill"
+                        id="quizProgress">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Question Card -->
+
+            <div class="question-card" id="questionCard">
+
+                <div class="question-number">
+                    QUESTION <span id="questionNumber">01</span>
+                </div>
+
+                <h2 class="question" id="question">
+                    Loading question...
+                </h2>
+
+
+                <!-- Options -->
+
+                <div class="options" id="options">
+
+                    <!-- JavaScript will insert options -->
+
+                </div>
+
+
+                <!-- Actions -->
+
+                <div class="quiz-actions">
+
+                    <button
+                        class="quiz-btn previous-btn"
+                        id="previousBtn">
+                        ← Previous
+                    </button>
+
+                    <button
+                        class="quiz-btn next-btn"
+                        id="nextBtn">
+                        Next →
+                    </button>
+
+                    <button
+                        class="quiz-btn submit-btn"
+                        id="submitBtn"
+                        style="display: none;">
+                        Submit Test ✓
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Result -->
+
+            <div class="result-card" id="resultCard">
+
+                <div class="result-icon">
+                    🎉
+                </div>
+
+                <h2>Test Completed!</h2>
+
+                <p>
+                    Great job! Here is your aptitude test result.
+                </p>
+
+                <div class="score" id="finalScore">
+                    0 / 20
+                </div>
+
+                <p id="resultMessage">
+                    Keep practicing and improve your score!
+                </p>
+
+                <button
+                    class="restart-btn"
+                    id="restartBtn">
+                    🔄 Try Again
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= SCRIPT ================= -->
+
+    <script>
+
+        /* =====================================================
+           APTITUDE QUESTIONS
+           ===================================================== */
+
+        const questions = [
+
+            {
+                question: "What is 20% of 250?",
+                options: ["25", "40", "50", "60"],
+                answer: 2
+            },
+
+            {
+                question: "If a train travels 120 km in 2 hours, what is its average speed?",
+                options: ["40 km/h", "50 km/h", "60 km/h", "80 km/h"],
+                answer: 2
+            },
+
+            {
+                question: "What is the next number in the series: 2, 4, 8, 16, ?",
+                options: ["20", "24", "32", "36"],
+                answer: 2
+            },
+
+            {
+                question: "A shopkeeper buys an item for ₹500 and sells it for ₹600. What is the profit percentage?",
+                options: ["10%", "15%", "20%", "25%"],
+                answer: 2
+            },
+
+            {
+                question: "What is the average of 10, 20, 30, 40 and 50?",
+                options: ["20", "25", "30", "35"],
+                answer: 2
+            },
+
+            {
+                question: "If 5 workers complete a task in 12 days, how many days will 10 workers take, assuming the same work rate?",
+                options: ["3 days", "5 days", "6 days", "8 days"],
+                answer: 2
+            },
+
+            {
+                question: "What is 3/4 of 200?",
+                options: ["100", "125", "150", "175"],
+                answer: 2
+            },
+
+            {
+                question: "If x + 15 = 35, what is x?",
+                options: ["10", "15", "20", "25"],
+                answer: 2
+            },
+
+            {
+                question: "Which number is divisible by both 3 and 5?",
+                options: ["20", "25", "30", "35"],
+                answer: 2
+            },
+
+            {
+                question: "A person walks 5 km north and then 3 km east. What is the shortest distance from the starting point?",
+                options: ["6 km", "7 km", "8 km", "9 km"],
+                answer: 1
+            },
+
+            {
+                question: "What is the simple interest on ₹1000 at 10% per annum for 2 years?",
+                options: ["₹100", "₹150", "₹200", "₹250"],
+                answer: 2
+            },
+
+            {
+                question: "If a number is increased from 80 to 100, what is the percentage increase?",
+                options: ["20%", "25%", "30%", "40%"],
+                answer: 1
+            },
+
+            {
+                question: "What is the LCM of 4 and 6?",
+                options: ["8", "10", "12", "24"],
+                answer: 2
+            },
+
+            {
+                question: "What is the HCF of 18 and 24?",
+                options: ["3", "6", "9", "12"],
+                answer: 1
+            },
+
+            {
+                question: "If 2x = 18, what is x?",
+                options: ["6", "7", "8", "9"],
+                answer: 3
+            },
+
+            {
+                question: "A clock shows 3:00. What is the angle between the hour and minute hands?",
+                options: ["60°", "90°", "120°", "180°"],
+                answer: 1
+            },
+
+            {
+                question: "What is the square root of 144?",
+                options: ["10", "11", "12", "14"],
+                answer: 2
+            },
+
+            {
+                question: "If 4 pens cost ₹40, what is the cost of 10 pens?",
+                options: ["₹80", "₹90", "₹100", "₹120"],
+                answer: 2
+            },
+
+            {
+                question: "A bag contains 3 red balls and 2 blue balls. What is the probability of picking a blue ball?",
+                options: ["1/5", "2/5", "3/5", "4/5"],
+                answer: 1
+            },
+
+            {
+                question: "What is 15 × 12?",
+                options: ["160", "170", "180", "190"],
+                answer: 2
+            }
+
+        ];
+
+
+        /* =====================================================
+           VARIABLES
+           ===================================================== */
+
+        let currentQuestion = 0;
+
+        let selectedAnswers =
+            new Array(questions.length).fill(null);
+
+        let timeLeft = 15 * 60;
+
+        let timerInterval;
+
+
+        /* =====================================================
+           DOM ELEMENTS
+           ===================================================== */
+
+        const questionElement =
+            document.getElementById("question");
+
+        const optionsElement =
+            document.getElementById("options");
+
+        const questionNumberElement =
+            document.getElementById("questionNumber");
+
+        const questionCounterElement =
+            document.getElementById("questionCounter");
+
+        const answeredCounterElement =
+            document.getElementById("answeredCounter");
+
+        const quizProgressElement =
+            document.getElementById("quizProgress");
+
+        const timerElement =
+            document.getElementById("timer");
+
+        const previousBtn =
+            document.getElementById("previousBtn");
+
+        const nextBtn =
+            document.getElementById("nextBtn");
+
+        const submitBtn =
+            document.getElementById("submitBtn");
+
+        const questionCard =
+            document.getElementById("questionCard");
+
+        const resultCard =
+            document.getElementById("resultCard");
+
+        const finalScore =
+            document.getElementById("finalScore");
+
+        const resultMessage =
+            document.getElementById("resultMessage");
+
+        const restartBtn =
+            document.getElementById("restartBtn");
+
+
+        /* =====================================================
+           LOAD QUESTION
+           ===================================================== */
+
+        function loadQuestion() {
+
+            const current =
+                questions[currentQuestion];
+
+
+            questionElement.textContent =
+                current.question;
+
+
+            questionNumberElement.textContent =
+                String(currentQuestion + 1).padStart(2, "0");
+
+
+            questionCounterElement.textContent =
+                `Question ${currentQuestion + 1} of ${questions.length}`;
+
+
+            const answered =
+                selectedAnswers.filter(
+                    answer => answer !== null
+                ).length;
+
+
+            answeredCounterElement.textContent =
+                `Answered: ${answered}`;
+
+
+            const progress =
+                ((currentQuestion + 1) /
+                    questions.length) * 100;
+
+
+            quizProgressElement.style.width =
+                `${progress}%`;
+
+
+            optionsElement.innerHTML = "";
+
+
+            current.options.forEach(
+                (option, index) => {
+
+                    const label =
+                        document.createElement("label");
+
+                    label.className = "option";
+
+
+                    if (
+                        selectedAnswers[currentQuestion] ===
+                        index
+                    ) {
+
+                        label.classList.add("selected");
+
+                    }
+
+
+                    label.innerHTML = `
+
+                        <input
+                            type="radio"
+                            name="answer"
+                            value="${index}"
+                            ${selectedAnswers[currentQuestion] === index
+                                ? "checked"
+                                : ""}
+                        >
+
+                        <span class="option-letter">
+                            ${String.fromCharCode(65 + index)}
+                        </span>
+
+                        <span>
+                            ${option}
+                        </span>
+
+                    `;
+
+
+                    label.addEventListener(
+                        "click",
+                        () => {
+
+                            selectedAnswers[currentQuestion] =
+                                index;
+
+                            updateSelectedOption();
+
+                            updateAnsweredCounter();
+
+                        }
+                    );
+
+
+                    optionsElement.appendChild(label);
+
+                }
+            );
+
+
+            previousBtn.disabled =
+                currentQuestion === 0;
+
+
+            previousBtn.style.opacity =
+                currentQuestion === 0 ? "0.5" : "1";
+
+
+            if (
+                currentQuestion ===
+                questions.length - 1
+            ) {
+
+                nextBtn.style.display =
+                    "none";
+
+                submitBtn.style.display =
+                    "block";
+
+            } else {
+
+                nextBtn.style.display =
+                    "block";
+
+                submitBtn.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SELECTED OPTION UI
+           ===================================================== */
+
+        function updateSelectedOption() {
+
+            const options =
+                document.querySelectorAll(".option");
+
+            options.forEach(
+                (option, index) => {
+
+                    option.classList.toggle(
+                        "selected",
+                        index ===
+                        selectedAnswers[currentQuestion]
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           ANSWERED COUNTER
+           ===================================================== */
+
+        function updateAnsweredCounter() {
+
+            const answered =
+                selectedAnswers.filter(
+                    answer => answer !== null
+                ).length;
+
+            answeredCounterElement.textContent =
+                `Answered: ${answered}`;
+
+        }
+
+
+        /* =====================================================
+           NEXT BUTTON
+           ===================================================== */
+
+        nextBtn.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    currentQuestion <
+                    questions.length - 1
+                ) {
+
+                    currentQuestion++;
+
+                    loadQuestion();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           PREVIOUS BUTTON
+           ===================================================== */
+
+        previousBtn.addEventListener(
+            "click",
+            () => {
+
+                if (currentQuestion > 0) {
+
+                    currentQuestion--;
+
+                    loadQuestion();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           SUBMIT TEST
+           ===================================================== */
+
+        submitBtn.addEventListener(
+            "click",
+            () => {
+
+                const unanswered =
+                    selectedAnswers.filter(
+                        answer => answer === null
+                    ).length;
+
+
+                if (unanswered > 0) {
+
+                    const proceed =
+                        confirm(
+                            `You have ${unanswered} unanswered question(s). Submit anyway?`
+                        );
+
+                    if (!proceed) {
+                        return;
+                    }
+
+                }
+
+
+                finishTest();
+
+            }
+        );
+
+
+        /* =====================================================
+           FINISH TEST
+           ===================================================== */
+
+        function finishTest() {
+
+            clearInterval(timerInterval);
+
+
+            let score = 0;
+
+
+            questions.forEach(
+                (question, index) => {
+
+                    if (
+                        selectedAnswers[index] ===
+                        question.answer
+                    ) {
+
+                        score++;
+
+                    }
+
+                }
+            );
+
+
+            finalScore.textContent =
+                `${score} / ${questions.length}`;
+
+
+            const percentage =
+                (score / questions.length) * 100;
+
+
+            if (percentage >= 80) {
+
+                resultMessage.textContent =
+                    "Excellent! 🔥 Your aptitude preparation is strong.";
+
+            } else if (percentage >= 60) {
+
+                resultMessage.textContent =
+                    "Good job! 👍 Keep practicing to improve further.";
+
+            } else if (percentage >= 40) {
+
+                resultMessage.textContent =
+                    "Nice attempt! 📚 More practice will help you improve.";
+
+            } else {
+
+                resultMessage.textContent =
+                    "Keep learning! 💪 Practice regularly and try again.";
+
+            }
+
+
+            questionCard.style.display =
+                "none";
+
+            document.querySelector(
+                ".quiz-progress"
+            ).style.display = "none";
+
+
+            resultCard.style.display =
+                "block";
+
+
+            /* Save score locally */
+            
+            localStorage.setItem(
+                "aptitudeLastScore",
+                score
+            );
+
+            localStorage.setItem(
+                "aptitudeLastTotal",
+                questions.length
+            );
+
+        }
+
+
+        /* =====================================================
+           TIMER
+           ===================================================== */
+
+        function startTimer() {
+
+            timerInterval =
+                setInterval(
+                    () => {
+
+                        if (timeLeft <= 0) {
+
+                            clearInterval(
+                                timerInterval
+                            );
+
+                            finishTest();
+
+                            return;
+
+                        }
+
+
+                        timeLeft--;
+
+
+                        const minutes =
+                            Math.floor(
+                                timeLeft / 60
+                            );
+
+                        const seconds =
+                            timeLeft % 60;
+
+
+                        timerElement.textContent =
+                            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+
+                        if (timeLeft <= 60) {
+
+                            timerElement.style.color =
+                                "#dc2626";
+
+                        }
+
+                    },
+                    1000
+                );
+
+        }
+
+
+        /* =====================================================
+           RESTART TEST
+           ===================================================== */
+
+        restartBtn.addEventListener(
+            "click",
+            () => {
+
+                currentQuestion = 0;
+
+                selectedAnswers =
+                    new Array(
+                        questions.length
+                    ).fill(null);
+
+                timeLeft =
+                    15 * 60;
+
+
+                resultCard.style.display =
+                    "none";
+
+                questionCard.style.display =
+                    "block";
+
+
+                document.querySelector(
+                    ".quiz-progress"
+                ).style.display = "block";
+
+
+                timerElement.style.color =
+                    "#2563eb";
+
+
+                loadQuestion();
+
+                startTimer();
+
+            }
+        );
+
+
+        /* =====================================================
+           START APPLICATION
+           ===================================================== */
+
+        loadQuestion();
+
+        startTimer();
+
+    </script>
+
+</body>
+
+</html>

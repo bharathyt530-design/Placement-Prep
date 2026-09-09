@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leaderboard | Placement Prep</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .leaderboard-page {
+            min-height: 100vh;
+            padding: 100px 5% 60px;
+            background: #f8fafc;
+        }
+
+        .leaderboard-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .leaderboard-header h1 {
+            font-size: 40px;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .leaderboard-header p {
+            color: #64748b;
+        }
+
+        .leaderboard-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .leaderboard-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .table-header,
+        .student-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 150px;
+            align-items: center;
+            padding: 18px 25px;
+            gap: 15px;
+        }
+
+        .table-header {
+            background: #0f172a;
+            color: white;
+            font-weight: 700;
+        }
+
+        .student-row {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .student-row:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .student-score {
+            text-align: right;
+            color: #2563eb;
+            font-weight: 800;
+        }
+
+        .top-rank {
+            font-size: 22px;
+        }
+
+        .your-score {
+            margin-top: 25px;
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .your-score h2 {
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .your-score p {
+            color: #64748b;
+        }
+
+        .score-value {
+            font-size: 35px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        @media (max-width: 600px) {
+            .leaderboard-header h1 {
+                font-size: 30px;
+            }
+
+            .table-header,
+            .student-row {
+                grid-template-columns: 55px 1fr 90px;
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🎓 Placement Prep
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+
+        <a href="index.html" class="btn-primary">
+            Home
+        </a>
+
+    </nav>
+
+
+    <!-- Leaderboard -->
+    <section class="leaderboard-page">
+
+        <div class="leaderboard-header">
+
+            <h1>🏆 Leaderboard</h1>
+
+            <p>
+                See how you rank among other placement learners.
+            </p>
+
+        </div>
+
+
+        <div class="leaderboard-container">
+
+            <div class="leaderboard-card">
+
+                <div class="table-header">
+
+                    <div>Rank</div>
+                    <div>Student</div>
+                    <div style="text-align: right;">
+                        Score
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank top-rank">🥇</div>
+
+                    <div class="student-name">
+                        Arjun Kumar
+                    </div>
+
+                    <div class="student-score">
+                        95%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank top-rank">🥈</div>
+
+                    <div class="student-name">
+                        Priya S
+                    </div>
+
+                    <div class="student-score">
+                        92%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank top-rank">🥉</div>
+
+                    <div class="student-name">
+                        Rahul M
+                    </div>
+
+                    <div class="student-score">
+                        89%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank">4</div>
+
+                    <div class="student-name">
+                        Karthik R
+                    </div>
+
+                    <div class="student-score">
+                        86%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank">5</div>
+
+                    <div class="student-name">
+                        Divya P
+                    </div>
+
+                    <div class="student-score">
+                        84%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank">6</div>
+
+                    <div class="student-name">
+                        Sanjay V
+                    </div>
+
+                    <div class="student-score">
+                        81%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank">7</div>
+
+                    <div class="student-name">
+                        Naveen K
+                    </div>
+
+                    <div class="student-score">
+                        78%
+                    </div>
+
+                </div>
+
+
+                <div class="student-row">
+
+                    <div class="rank">8</div>
+
+                    <div class="student-name">
+                        Meena R
+                    </div>
+
+                    <div class="student-score">
+                        75%
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Your Score -->
+            <div class="your-score">
+
+                <h2>📊 Your Current Score</h2>
+
+                <div class="score-value" id="yourScore">
+                    0%
+                </div>
+
+                <p>
+                    Complete more tests to improve your ranking!
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        /*
+         * Get user's mock test score
+         */
+
+        const score =
+            Number(localStorage.getItem("mockTestScore")) || 0;
+
+        const total =
+            Number(localStorage.getItem("mockTestTotal")) || 10;
+
+
+        const percentage =
+            Math.round((score / total) * 100);
+
+
+        document.getElementById("yourScore").textContent =
+            percentage + "%";
+
+    </script>
+
+</body>
+</html>

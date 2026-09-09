@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Placement Prep</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background: #f8fafc;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .auth-card h1 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .auth-card .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+        }
+
+        .signup-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="auth-page">
+
+        <div class="auth-card">
+
+            <h1>🎓 Welcome Back</h1>
+
+            <p class="subtitle">
+                Login to your Placement Prep account
+            </p>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn">
+                    Login
+                </button>
+
+            </form>
+
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <div class="signup-link">
+
+                Don't have an account?
+
+                <a href="signup.html">
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const email =
+                    document.getElementById("email").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+
+                const savedEmail =
+                    localStorage.getItem("userEmail");
+
+                const savedPassword =
+                    localStorage.getItem("userPassword");
+
+
+                const message =
+                    document.getElementById("message");
+
+
+                if (
+                    email === savedEmail &&
+                    password === savedPassword
+                ) {
+
+                    localStorage.setItem(
+                        "isLoggedIn",
+                        "true"
+                    );
+
+                    message.textContent =
+                        "Login successful! Redirecting...";
+
+                    message.className =
+                        "message success";
+
+                    message.style.display =
+                        "block";
+
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    }, 1000);
+
+                } else {
+
+                    message.textContent =
+                        "Invalid email or password.";
+
+                    message.className =
+                        "message error";
+
+                    message.style.display =
+                        "block";
+
+                }
+
+            });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Placement Prep</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .dashboard-page {
+            min-height: 100vh;
+            padding: 100px 5% 60px;
+            background: #f8fafc;
+        }
+
+        .dashboard-header {
+            max-width: 1100px;
+            margin: auto;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 38px;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header p {
+            color: #64748b;
+        }
+
+        .dashboard-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .stat-card .icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .dashboard-card h2 {
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 20px;
+        }
+
+        .activity {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .activity:last-child {
+            border-bottom: none;
+        }
+
+        .activity strong {
+            color: #334155;
+        }
+
+        .activity span {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .overall-score {
+            font-size: 55px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .score-box p {
+            color: #64748b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: #ef4444;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        .welcome-name {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        @media (max-width: 850px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header h1 {
+                font-size: 30px;
+            }
+
+            .logout-btn {
+                margin-left: 5px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🎓 Placement Prep
+        </div>
+
+        <!-- Logout - Left Side -->
+        <button id="logoutBtn" class="logout-btn">
+            Logout
+        </button>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+
+        <a href="index.html" class="btn-primary">
+            Home
+        </a>
+
+    </nav>
+
+
+    <!-- Dashboard -->
+    <section class="dashboard-page">
+
+        <div class="dashboard-header">
+
+            <h1>
+                📊 My Dashboard
+            </h1>
+
+            <p>
+                Welcome,
+                <span id="userName" class="welcome-name">
+                    Student
+                </span>
+                👋 Track your placement preparation progress.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-container">
+
+            <!-- Stats -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="icon">🧮</div>
+                    <h3 id="aptitudeScore">0</h3>
+                    <p>Aptitude Score</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon">💻</div>
+                    <h3 id="codingStatus">0</h3>
+                    <p>Coding Problems</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon">📝</div>
+                    <h3 id="mockScore">0</h3>
+                    <p>Mock Test Score</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon">🎯</div>
+                    <h3 id="interviewCount">0</h3>
+                    <p>Interview Questions</p>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- Progress -->
+                <div class="dashboard-card">
+
+                    <h2>📈 Preparation Progress</h2>
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+                            <span>Aptitude</span>
+                            <span id="aptitudePercent">0%</span>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div
+                                class="progress-fill"
+                                id="aptitudeBar"
+                                style="width: 0%">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+                            <span>Coding</span>
+                            <span id="codingPercent">0%</span>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div
+                                class="progress-fill"
+                                id="codingBar"
+                                style="width: 0%">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+                            <span>Interview</span>
+                            <span id="interviewPercent">0%</span>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div
+                                class="progress-fill"
+                                id="interviewBar"
+                                style="width: 0%">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Overall Score -->
+                <div class="dashboard-card">
+
+                    <h2>🏆 Overall Score</h2>
+
+                    <div class="score-box">
+
+                        <div
+                            class="overall-score"
+                            id="overallScore">
+                            0%
+                        </div>
+
+                        <p>
+                            Keep practicing and improve your score!
+                        </p>
+
+                    </div>
+
+
+                    <div class="action-buttons">
+
+                        <a
+                            href="aptitude.html"
+                            class="action-btn">
+                            Practice Aptitude
+                        </a>
+
+                        <a
+                            href="coding.html"
+                            class="action-btn">
+                            Practice Coding
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+
+                    <h2>🕒 Recent Activity</h2>
+
+                    <div class="activity">
+
+                        <strong>Aptitude Practice</strong>
+
+                        <span id="aptitudeActivity">
+                            Not attempted
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <strong>Mock Test</strong>
+
+                        <span id="mockActivity">
+                            Not attempted
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <strong>Coding</strong>
+
+                        <span id="codingActivity">
+                            Not attempted
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Quick Actions -->
+                <div class="dashboard-card">
+
+                    <h2>⚡ Quick Actions</h2>
+
+                    <div class="action-buttons">
+
+                        <a
+                            href="mocktest.html"
+                            class="action-btn">
+                            Start Mock Test
+                        </a>
+
+                        <a
+                            href="interview.html"
+                            class="action-btn">
+                            Interview Prep
+                        </a>
+
+                        <a
+                            href="index.html"
+                            class="action-btn">
+                            Home
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        /* ================================
+           LOGIN CHECK
+        ================================= */
+
+        const isLoggedIn =
+            localStorage.getItem("isLoggedIn");
+
+        if (isLoggedIn !== "true") {
+
+            window.location.href = "login.html";
+
+        }
+
+
+        /* ================================
+           SHOW USER NAME
+        ================================= */
+
+        const savedUserName =
+            localStorage.getItem("userName");
+
+        if (savedUserName) {
+
+            document.getElementById("userName").textContent =
+                savedUserName;
+
+        }
+
+
+        /* ================================
+           LOGOUT
+        ================================= */
+
+        document.getElementById("logoutBtn")
+            .addEventListener("click", function () {
+
+                localStorage.removeItem("isLoggedIn");
+
+                window.location.href = "login.html";
+
+            });
+
+
+        /* ================================
+           READ APTITUDE SCORE
+        ================================= */
+
+        const aptitudeScore =
+            Number(localStorage.getItem("aptitudeLastScore")) || 0;
+
+        const aptitudeTotal =
+            Number(localStorage.getItem("aptitudeLastTotal")) || 20;
+
+
+        /* ================================
+           READ MOCK TEST SCORE
+        ================================= */
+
+        const mockScore =
+            Number(localStorage.getItem("mockTestScore")) || 0;
+
+        const mockTotal =
+            Number(localStorage.getItem("mockTestTotal")) || 10;
+
+
+        /* ================================
+           CALCULATE PERCENTAGE
+        ================================= */
+
+        const aptitudePercent =
+            Math.round(
+                (aptitudeScore / aptitudeTotal) * 100
+            );
+
+        const mockPercent =
+            Math.round(
+                (mockScore / mockTotal) * 100
+            );
+
+
+        /* ================================
+           DISPLAY SCORES
+        ================================= */
+
+        document.getElementById("aptitudeScore").textContent =
+            aptitudeScore + "/" + aptitudeTotal;
+
+        document.getElementById("mockScore").textContent =
+            mockScore + "/" + mockTotal;
+
+
+        /* ================================
+           CODING & INTERVIEW
+        ================================= */
+
+        const codingProblems = 6;
+        const interviewQuestions = 10;
+
+        document.getElementById("codingStatus").textContent =
+            codingProblems;
+
+        document.getElementById("interviewCount").textContent =
+            interviewQuestions;
+
+
+        /* ================================
+           PROGRESS
+        ================================= */
+
+        const codingPercent = 60;
+        const interviewPercent = 70;
+
+
+        document.getElementById("aptitudePercent").textContent =
+            aptitudePercent + "%";
+
+        document.getElementById("codingPercent").textContent =
+            codingPercent + "%";
+
+        document.getElementById("interviewPercent").textContent =
+            interviewPercent + "%";
+
+
+        document.getElementById("aptitudeBar").style.width =
+            aptitudePercent + "%";
+
+        document.getElementById("codingBar").style.width =
+            codingPercent + "%";
+
+        document.getElementById("interviewBar").style.width =
+            interviewPercent + "%";
+
+
+        /* ================================
+           OVERALL SCORE
+        ================================= */
+
+        const overall =
+            Math.round(
+                (
+                    aptitudePercent +
+                    codingPercent +
+                    interviewPercent
+                ) / 3
+            );
+
+
+        document.getElementById("overallScore").textContent =
+            overall + "%";
+
+
+        /* ================================
+           RECENT ACTIVITY
+        ================================= */
+
+        if (localStorage.getItem("aptitudeLastScore")) {
+
+            document.getElementById("aptitudeActivity").textContent =
+                aptitudeScore + "/" + aptitudeTotal;
+
+        }
+
+
+        if (localStorage.getItem("mockTestScore")) {
+
+            document.getElementById("mockActivity").textContent =
+                mockScore + "/" + mockTotal;
+
+        }
+
+
+        if (localStorage.getItem("lastCodingQuestion")) {
+
+            document.getElementById("codingActivity").textContent =
+                "Practiced";
+
+        }
+
+    </script>
+
+</body>
+</html>
