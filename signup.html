@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,74 +8,291 @@
     <title>Sign Up | Placement Prep</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background: #f8fafc;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .auth-card h1 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .signup-btn:hover {
+            opacity: 0.9;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+        }
+
+        .login-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="auth-page">
+
+        <div class="auth-card">
+
+            <h1>🚀 Create Account</h1>
+
+            <p class="subtitle">
+                Start your placement preparation
+            </p>
+
+            <form id="signupForm">
+
+                <div class="form-group">
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create a password"
+                        minlength="6"
+                        required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        minlength="6"
+                        required>
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="signup-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
     <script>
-    document
-        .getElementById("signupForm")
-        .addEventListener("submit", function(event) {
 
-            event.preventDefault();
+        document
+            .getElementById("signupForm")
+            .addEventListener("submit", function(event) {
 
-            const name =
-                document.getElementById("name").value.trim();
-
-            const email =
-                document.getElementById("email").value.trim();
-
-            const password =
-                document.getElementById("password").value;
-
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-            const message =
-                document.getElementById("message");
+                event.preventDefault();
 
 
-            // Check password
-            if (password !== confirmPassword) {
+                const name =
+                    document.getElementById("name").value.trim();
 
+                const email =
+                    document.getElementById("email").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+                const confirmPassword =
+                    document.getElementById("confirmPassword").value;
+
+                const message =
+                    document.getElementById("message");
+
+
+                // Check password
+                if (password !== confirmPassword) {
+
+                    message.textContent =
+                        "Passwords do not match.";
+
+                    message.className =
+                        "message error";
+
+                    message.style.display =
+                        "block";
+
+                    return;
+                }
+
+
+                // Save account details
+                localStorage.setItem(
+                    "userName",
+                    name
+                );
+
+                localStorage.setItem(
+                    "userEmail",
+                    email
+                );
+
+                localStorage.setItem(
+                    "userPassword",
+                    password
+                );
+
+
+                // Success message
                 message.textContent =
-                    "Passwords do not match.";
+                    "Account created successfully!";
 
                 message.className =
-                    "message error";
+                    "message success";
 
                 message.style.display =
                     "block";
 
-                return;
-            }
 
+                // Redirect to login
+                setTimeout(function() {
 
-            // Save account details
-            localStorage.setItem("userName", name);
-            localStorage.setItem("userEmail", email);
-            localStorage.setItem("userPassword", password);
+                    window.location.href =
+                        "login.html";
 
+                }, 1000);
 
-            // Success message
-            message.textContent =
-                "Account created successfully!";
+            });
 
-            message.className =
-                "message success";
-
-            message.style.display =
-                "block";
-
-
-            // Go to login page
-            setTimeout(() => {
-
-                window.location.href =
-                    "login.html";
-
-            }, 1000);
-
-        });
-</script>
-
-            
+    </script>
 
 </body>
+
 </html>
