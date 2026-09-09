@@ -32,4 +32,4 @@ GitHub Pages deployment is available for the frontend.
 
 ## 👨‍💻 Author
 
-Bharathy
+Bharath V
