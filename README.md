@@ -28,7 +28,7 @@ Placement Prep provides students with a simple platform to practice aptitude, co
 
 ## 🌐 Live Demo
 
-GitHub Pages deployment is available for the frontend.
+[GitHub Pages deployment is available for the frontend.](https://bharathyt530-design.github.io/Placement-Prep/)
 
 ## 👨‍💻 Author
 
